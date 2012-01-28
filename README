@@ -1,0 +1,13 @@
+Smartframes is a way to frame ANY site, with full javascript enabled and no gimmicks.
+
+It works most efficiently in browser extensions, making a GET for the page, and then base64 encoding it, creating a data url, and setting the iframe url to this data url (of the page itself) (check wikipedia for "Data URI Scheme")
+
+On webpages, the iframe can be set to, say, scraper.php?urlToScrape=http://www.google.com. Then scraper.php scrapes and returns the page. This goes around http headers that outright block framing. 
+
+Both of the above methods are handling the page code and passing it somewhere.
+Any and all javascript can be wrapped in a different scope that fools some javascript variables, like top, self, parent, and even overwriting window with the frames window object. (Basically, overwrite these variables so that the javascript can't detect that it's in an iframe and break out)
+
+This takes care of javascript that breaks out of frames.
+
+Now, to load a unknown foreign site in an iframe, we don't want some crazy frame busting going on via javascript. Here detection.js is some detection javascript that detects and reports if a site attempts to break out of the frame, which triggers a onbeforeunload popup.
+
